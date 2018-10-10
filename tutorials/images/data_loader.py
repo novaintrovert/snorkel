@@ -47,14 +47,13 @@ class DataLoader(object):
         with open(self.data_path + 'image_data.json') as json_data:
             self.data = json.load(json_data)
 
+    def show_image(self, vg_idx):
+        image_url = self.data[vg_idx]['url']
+        I = io.imread(image_url)
+        plt.axis('off')
+        plt.imshow(I)
     
     def show_examples(self, annotated=False, label=-1):
-
-        def show_image(vg_idx):
-            image_url = self.data[vg_idx]['url']
-            I = io.imread(image_url)
-            plt.axis('off')
-            plt.imshow(I)
     
         def show_image_annotated(vg_idx, idx):
             image_url = self.data[vg_idx]['url']
@@ -80,6 +79,6 @@ class DataLoader(object):
             if annotated:
                 show_image_annotated(int(self.val_vg_idx[i]), i)
             else:
-                show_image(int(self.val_vg_idx[i]))
+                self.show_image(int(self.val_vg_idx[i]))
         plt.suptitle('Query Examples')
 
